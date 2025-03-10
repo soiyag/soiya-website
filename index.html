@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>レトロゲームスタイル ポートフォリオ</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="game-container">
+        <header class="game-header">
+            <h1 class="pixel-text">デザイナー ポートフォリオ</h1>
+            <div class="game-controls">
+                <div class="control-btn">START</div>
+                <div class="control-btn">SELECT</div>
+            </div>
+        </header>
+
+        <nav class="game-menu">
+            <ul>
+                <li class="menu-item active" data-section="about">自己紹介</li>
+                <li class="menu-item" data-section="projects">作品集</li>
+                <li class="menu-item" data-section="skills">スキル</li>
+                <li class="menu-item" data-section="contact">お問い合わせ</li>
+            </ul>
+        </nav>
+
+        <main class="game-screen">
+            <section id="about" class="game-section active">
+                <div class="pixel-box">
+                    <h2 class="section-title">自己紹介</h2>
+                    <div class="pixel-avatar"></div>
+                    <p>こんにちは！私はレトロゲーム愛好家のデザイナーです。8ビット時代のゲームから影響を受けたデザインを得意としています。</p>
+                    <p>ピクセルアートからUIデザインまで、クラシックなゲーム美学を現代のデザインに取り入れることを専門としています。</p>
+                </div>
+            </section>
+
+            <section id="projects" class="game-section">
+                <div class="pixel-box">
+                    <h2 class="section-title">作品集</h2>
+                    <div class="projects-grid">
+                        <div class="project-item">
+                            <div class="project-image" style="background-color: #83c5be;"></div>
+                            <h3>ピクセルアドベンチャー</h3>
+                            <p>レトロスタイルのゲームUI</p>
+                        </div>
+                        <div class="project-item">
+                            <div class="project-image" style="background-color: #e29578;"></div>
+                            <h3>8ビットアイコン</h3>
+                            <p>ピクセルアートアイコンセット</p>
+                        </div>
+                        <div class="project-item">
+                            <div class="project-image" style="background-color: #006d77;"></div>
+                            <h3>レトロウェブサイト</h3>
+                            <p>90年代風ウェブデザイン</p>
+                        </div>
+                        <div class="project-item">
+                            <div class="project-image" style="background-color: #ffddd2;"></div>
+                            <h3>ドットキャラクター</h3>
+                            <p>ゲームキャラクターデザイン</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="skills" class="game-section">
+                <div class="pixel-box">
+                    <h2 class="section-title">スキル</h2>
+                    <div class="skills-container">
+                        <div class="skill-item">
+                            <h3>ピクセルアート</h3>
+                            <div class="skill-bar">
+                                <div class="skill-level" style="width: 90%;"></div>
+                            </div>
+                        </div>
+                        <div class="skill-item">
+                            <h3>UIデザイン</h3>
+                            <div class="skill-bar">
+                                <div class="skill-level" style="width: 85%;"></div>
+                            </div>
+                        </div>
+                        <div class="skill-item">
+                            <h3>イラストレーション</h3>
+                            <div class="skill-bar">
+                                <div class="skill-level" style="width: 80%;"></div>
+                            </div>
+                        </div>
+                        <div class="skill-item">
+                            <h3>アニメーション</h3>
+                            <div class="skill-bar">
+                                <div class="skill-level" style="width: 75%;"></div>
+                            </div>
+                        </div>
+                        <div class="skill-item">
+                            <h3>HTML/CSS</h3>
+                            <div class="skill-bar">
+                                <div class="skill-level" style="width: 70%;"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="contact" class="game-section">
+                <div class="pixel-box">
+                    <h2 class="section-title">お問い合わせ</h2>
+                    <form class="contact-form">
+                        <div class="form-group">
+                            <label for="name">お名前：</label>
+                            <input type="text" id="name" class="pixel-input" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="email">メールアドレス：</label>
+                            <input type="email" id="email" class="pixel-input" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="message">メッセージ：</label>
+                            <textarea id="message" class="pixel-input" rows="4" required></textarea>
+                        </div>
+                        <button type="submit" class="pixel-btn">送信する</button>
+                    </form>
+                    <div class="social-links">
+                        <a href="#" class="social-icon">Twitter</a>
+                        <a href="#" class="social-icon">Instagram</a>
+                        <a href="#" class="social-icon">Behance</a>
+                        <a href="#" class="social-icon">GitHub</a>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <footer class="game-footer">
+            <p>&copy; 2025 レトロゲームスタイル ポートフォリオ</p>
+            <div class="game-controls-footer">
+                <div class="d-pad">
+                    <div class="d-up">↑</div>
+                    <div class="d-right">→</div>
+                    <div class="d-down">↓</div>
+                    <div class="d-left">←</div>
+                </div>
+                <div class="action-btns">
+                    <div class="btn-a">A</div>
+                    <div class="btn-b">B</div>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html> 
