@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ボイスメモ | レトロ音声入力</title>
+    <meta name="description" content="話した言葉をその場でテキストにする、8ビット風の音声入力アプリ">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DotGothic16&family=Press+Start+2P&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="voice.css">
+</head>
+<body class="voice-page">
+    <div class="game-container">
+        <header class="game-header">
+            <h1 class="pixel-text">VOICE MEMO</h1>
+            <div class="game-controls">
+                <a href="index.html" class="control-btn">◄ BACK</a>
+            </div>
+        </header>
+
+        <main class="game-screen voice-screen">
+            <!-- 非対応ブラウザ向けのメッセージ -->
+            <div id="unsupported" class="pixel-box notice" hidden>
+                <p class="notice-title">GAME OVER...</p>
+                <p>このブラウザは音声認識に対応していません。<br>Chrome・Edge・Safari で開いてください。</p>
+            </div>
+
+            <!-- 録音コントロール -->
+            <section class="pixel-box rec-panel" aria-label="録音">
+                <div class="status-row">
+                    <span id="statusBadge" class="status-badge">READY</span>
+                    <div id="visualizer" class="visualizer" aria-hidden="true">
+                        <span></span><span></span><span></span><span></span><span></span><span></span>
+                        <span></span><span></span><span></span><span></span><span></span><span></span>
+                    </div>
+                </div>
+
+                <button id="micBtn" class="mic-btn" type="button" aria-pressed="false">
+                    <svg class="mic-icon" viewBox="0 0 12 14" aria-hidden="true" shape-rendering="crispEdges">
+                        <path fill="currentColor" d="M4 0h4v1h-4zM3 1h6v1h-6zM3 2h2v1h-2zM7 2h2v1h-2zM3 3h6v1h-6zM3 4h2v1h-2zM7 4h2v1h-2zM1 5h1v1h-1zM3 5h6v1h-6zM10 5h1v1h-1zM1 6h1v1h-1zM3 6h6v1h-6zM10 6h1v1h-1zM1 7h1v1h-1zM4 7h4v1h-4zM10 7h1v1h-1zM1 8h2v1h-2zM9 8h2v1h-2zM2 9h3v1h-3zM7 9h3v1h-3zM4 10h4v1h-4zM5 11h2v1h-2zM5 12h2v1h-2zM3 13h6v1h-6z"/>
+                    </svg>
+                    <span id="micLabel" class="mic-label">START</span>
+                </button>
+
+                <p id="statusText" class="status-text" role="status">ボタンを押して話しかけてください</p>
+                <p class="hint"><kbd>SPACE</kbd> で開始／停止</p>
+
+                <div class="options">
+                    <label class="option">
+                        <span class="option-label">言語</span>
+                        <select id="langSelect" class="pixel-select">
+                            <option value="ja-JP">日本語</option>
+                            <option value="en-US">English (US)</option>
+                            <option value="en-GB">English (UK)</option>
+                            <option value="ko-KR">한국어</option>
+                            <option value="zh-CN">中文（简体）</option>
+                            <option value="zh-TW">中文（繁體）</option>
+                            <option value="es-ES">Español</option>
+                            <option value="fr-FR">Français</option>
+                            <option value="de-DE">Deutsch</option>
+                        </select>
+                    </label>
+                    <label class="option option-check">
+                        <input type="checkbox" id="cmdToggle" checked>
+                        <span class="checkmark" aria-hidden="true"></span>
+                        <span class="option-label">音声コマンド</span>
+                    </label>
+                </div>
+            </section>
+
+            <!-- テキスト -->
+            <section class="pixel-box text-panel" aria-label="テキスト">
+                <h2 class="section-title">TEXT</h2>
+                <textarea id="transcript" class="transcript" rows="8"
+                    placeholder="ここに文字が入ります。直接編集もできます。"
+                    aria-label="認識したテキスト"></textarea>
+                <div id="interim" class="interim" aria-hidden="true"></div>
+                <div class="text-meta">
+                    <span><span id="charCount">0</span> 文字</span>
+                    <span id="saveState" class="save-state"></span>
+                </div>
+                <div class="actions">
+                    <button id="copyBtn" class="pixel-btn" type="button">コピー</button>
+                    <button id="downloadBtn" class="pixel-btn" type="button">保存 .txt</button>
+                    <button id="undoBtn" class="pixel-btn" type="button" disabled>元に戻す</button>
+                    <button id="clearBtn" class="pixel-btn btn-danger" type="button">クリア</button>
+                </div>
+            </section>
+
+            <!-- ヘルプ -->
+            <section class="pixel-box help-panel" aria-label="使い方">
+                <h2 class="section-title">HOW TO</h2>
+                <p class="help-lead">「音声コマンド」がオンのとき、次の言葉は記号に変わります。</p>
+                <table class="cmd-table">
+                    <thead>
+                        <tr><th>言うこと</th><th>入るもの</th></tr>
+                    </thead>
+                    <tbody>
+                        <tr><td>かいぎょう</td><td>改行</td></tr>
+                        <tr><td>くてん</td><td>。</td></tr>
+                        <tr><td>とうてん</td><td>、</td></tr>
+                        <tr><td>ぎもんふ</td><td>？</td></tr>
+                        <tr><td>かんたんふ</td><td>！</td></tr>
+                        <tr><td>new line / period / comma</td><td>英語のとき</td></tr>
+                    </tbody>
+                </table>
+                <ul class="help-notes">
+                    <li>文字はカーソルの位置に入ります。</li>
+                    <li>テキストはこのブラウザに自動保存されます。</li>
+                    <li>音声認識はブラウザの機能を使います。Chrome では音声が Google のサーバーに送られて変換されます。</li>
+                    <li>マイクを使うため、https のページ（GitHub Pages など）で開いてください。</li>
+                </ul>
+            </section>
+        </main>
+
+        <footer class="game-footer">
+            <p>&copy; 2025 レトロゲームスタイル ポートフォリオ</p>
+        </footer>
+    </div>
+
+    <div id="toast" class="toast" role="status" aria-live="polite"></div>
+
+    <script src="voice.js"></script>
+</body>
+</html>

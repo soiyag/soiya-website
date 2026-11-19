@@ -1,0 +1,528 @@
+/* 音声入力ページ専用のスタイル（styles.css の変数を使う） */
+
+.voice-page {
+    font-family: 'Press Start 2P', 'DotGothic16', sans-serif;
+}
+
+.voice-page .game-header .control-btn {
+    text-decoration: none;
+    font-family: inherit;
+}
+
+.voice-screen {
+    min-height: 0;
+}
+
+.voice-screen .pixel-box {
+    margin-bottom: 36px;
+}
+
+.voice-screen .pixel-box:last-child {
+    margin-bottom: 0;
+}
+
+/* ---------- 非対応メッセージ ---------- */
+.notice {
+    border-color: var(--highlight-color);
+    text-align: center;
+    font-family: 'DotGothic16', sans-serif;
+    font-size: 16px;
+}
+
+.notice-title {
+    font-family: 'Press Start 2P', sans-serif;
+    color: var(--highlight-color);
+    font-size: 16px;
+    margin-bottom: 12px;
+}
+
+/* ---------- 録音パネル ---------- */
+.rec-panel {
+    text-align: center;
+}
+
+.status-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 24px;
+}
+
+.status-badge {
+    font-size: 12px;
+    padding: 6px 10px;
+    border: 4px solid var(--text-color);
+    background-color: var(--bg-color);
+    white-space: nowrap;
+}
+
+.status-badge.is-rec {
+    color: var(--highlight-color);
+    border-color: var(--highlight-color);
+}
+
+/* 点だけ点滅させる（文字は常に見えるように） */
+.status-badge.is-rec::before {
+    content: '●';
+    display: inline-block;
+    margin-right: 8px;
+    animation: blink 1s infinite;
+}
+
+.status-badge.is-error {
+    color: var(--bg-color);
+    background-color: var(--highlight-color);
+    border-color: var(--highlight-color);
+}
+
+/* ピクセルのレベルメーター */
+.visualizer {
+    display: flex;
+    align-items: flex-end;
+    gap: 4px;
+    height: 32px;
+}
+
+.visualizer span {
+    display: block;
+    width: 8px;
+    height: 4px;
+    background-color: var(--secondary-color);
+    opacity: 0.35;
+}
+
+.visualizer.is-listening span {
+    opacity: 1;
+    animation: idle-bar 1.2s steps(3) infinite;
+}
+
+.visualizer.is-speaking span {
+    background-color: var(--highlight-color);
+    animation: talk-bar 0.5s steps(4) infinite;
+}
+
+.visualizer span:nth-child(2n) { animation-delay: -0.2s; }
+.visualizer span:nth-child(3n) { animation-delay: -0.35s; }
+.visualizer span:nth-child(4n) { animation-delay: -0.1s; }
+.visualizer span:nth-child(5n) { animation-delay: -0.45s; }
+
+@keyframes idle-bar {
+    0%, 100% { height: 4px; }
+    50% { height: 8px; }
+}
+
+@keyframes talk-bar {
+    0%, 100% { height: 8px; }
+    25% { height: 28px; }
+    50% { height: 16px; }
+    75% { height: 32px; }
+}
+
+/* 大きなマイクボタン */
+.mic-btn {
+    display: inline-flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    width: 160px;
+    height: 160px;
+    background-color: var(--primary-color);
+    color: var(--secondary-color);
+    border: 6px solid var(--text-color);
+    box-shadow: 6px 6px 0 var(--bg-color), 6px 6px 0 6px var(--secondary-color);
+    font-family: 'Press Start 2P', sans-serif;
+    cursor: pointer;
+    transition: transform 0.08s, background-color 0.2s;
+    -webkit-tap-highlight-color: transparent;
+}
+
+.mic-btn:hover {
+    background-color: var(--box-color);
+}
+
+.mic-btn:active {
+    transform: translate(4px, 4px);
+    box-shadow: 2px 2px 0 var(--bg-color), 2px 2px 0 6px var(--secondary-color);
+}
+
+.mic-btn:focus-visible {
+    outline: 4px dashed var(--highlight-color);
+    outline-offset: 10px;
+}
+
+.mic-btn.is-rec {
+    background-color: var(--highlight-color);
+    color: var(--text-color);
+    animation: rec-pulse 1s steps(2) infinite;
+}
+
+.mic-btn:disabled {
+    cursor: not-allowed;
+    opacity: 0.4;
+    animation: none;
+}
+
+@keyframes rec-pulse {
+    0%, 100% { box-shadow: 6px 6px 0 var(--bg-color), 6px 6px 0 6px var(--secondary-color); }
+    50% { box-shadow: 6px 6px 0 var(--bg-color), 6px 6px 0 6px var(--highlight-color); }
+}
+
+.mic-icon {
+    width: 60px;
+    height: 70px;
+}
+
+.mic-label {
+    font-size: 14px;
+}
+
+.status-text {
+    margin-top: 28px;
+    font-family: 'DotGothic16', sans-serif;
+    font-size: 16px;
+    min-height: 1.6em;
+}
+
+.status-text.is-error {
+    color: var(--highlight-color);
+}
+
+.hint {
+    margin-top: 8px;
+    font-size: 12px;
+    font-family: 'DotGothic16', sans-serif;
+    opacity: 0.7;
+}
+
+.hint kbd {
+    font-family: 'Press Start 2P', sans-serif;
+    font-size: 10px;
+}
+
+/* タッチ端末ではキーボードの案内はいらない */
+@media (hover: none) {
+    .hint {
+        display: none;
+    }
+}
+
+kbd {
+    font-family: inherit;
+    padding: 2px 6px;
+    border: 2px solid var(--text-color);
+}
+
+/* オプション */
+.options {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 16px 32px;
+    margin-top: 24px;
+    padding-top: 20px;
+    border-top: 4px dashed var(--bg-color);
+}
+
+.option {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    cursor: pointer;
+}
+
+.option-label {
+    font-family: 'DotGothic16', sans-serif;
+    font-size: 16px;
+    color: var(--secondary-color);
+}
+
+.pixel-select {
+    appearance: none;
+    -webkit-appearance: none;
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    border: 4px solid var(--text-color);
+    border-radius: 0;
+    padding: 8px 32px 8px 10px;
+    font-family: 'DotGothic16', sans-serif;
+    font-size: 16px;
+    cursor: pointer;
+    background-image: linear-gradient(45deg, transparent 50%, var(--secondary-color) 50%),
+                      linear-gradient(135deg, var(--secondary-color) 50%, transparent 50%);
+    background-position: calc(100% - 16px) 50%, calc(100% - 10px) 50%;
+    background-size: 6px 6px;
+    background-repeat: no-repeat;
+}
+
+.pixel-select:focus-visible {
+    outline: none;
+    border-color: var(--secondary-color);
+}
+
+/* ピクセル風チェックボックス */
+.option-check input {
+    position: absolute;
+    opacity: 0;
+    width: 1px;
+    height: 1px;
+}
+
+.checkmark {
+    width: 24px;
+    height: 24px;
+    border: 4px solid var(--text-color);
+    background-color: var(--bg-color);
+    position: relative;
+    flex-shrink: 0;
+}
+
+.option-check input:checked + .checkmark::after {
+    content: '';
+    position: absolute;
+    inset: 3px;
+    background-color: var(--secondary-color);
+}
+
+.option-check input:focus-visible + .checkmark {
+    border-color: var(--secondary-color);
+}
+
+/* ---------- テキストパネル ---------- */
+.text-panel .section-title {
+    margin-bottom: 28px;
+}
+
+.transcript {
+    display: block;
+    width: 100%;
+    min-height: 220px;
+    padding: 14px;
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    border: 4px solid var(--text-color);
+    border-radius: 0;
+    font-family: 'DotGothic16', sans-serif;
+    font-size: 18px;
+    line-height: 1.7;
+    resize: vertical;
+    outline: none;
+}
+
+.transcript:focus {
+    border-color: var(--secondary-color);
+}
+
+.transcript::placeholder {
+    color: var(--text-color);
+    opacity: 0.4;
+}
+
+/* 認識中（未確定）のテキスト */
+.interim {
+    min-height: 0;
+    font-family: 'DotGothic16', sans-serif;
+    font-size: 18px;
+    line-height: 1.7;
+    color: var(--secondary-color);
+    border: 4px dashed transparent;
+    padding: 0 14px;
+    margin-top: 0;
+    transition: border-color 0.2s;
+}
+
+.interim:not(:empty) {
+    border-color: var(--secondary-color);
+    padding: 8px 14px;
+    margin-top: 12px;
+}
+
+.interim:not(:empty)::after {
+    content: '_';
+    animation: blink 0.6s infinite;
+}
+
+.text-meta {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 12px;
+    font-family: 'DotGothic16', sans-serif;
+    font-size: 14px;
+    opacity: 0.8;
+}
+
+.save-state {
+    color: var(--success-color);
+}
+
+.actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-top: 16px;
+}
+
+.voice-page .pixel-btn {
+    font-family: 'DotGothic16', 'Press Start 2P', sans-serif;
+    font-size: 16px;
+    margin-top: 0;
+}
+
+.voice-page .pixel-btn:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+}
+
+.voice-page .pixel-btn:disabled:hover {
+    background-color: var(--primary-color);
+    color: var(--text-color);
+}
+
+.voice-page .pixel-btn:focus-visible {
+    outline: 4px dashed var(--secondary-color);
+    outline-offset: 2px;
+}
+
+.btn-danger {
+    margin-left: auto;
+    background-color: var(--box-color);
+    border-color: var(--highlight-color);
+    color: var(--highlight-color);
+}
+
+.btn-danger:hover {
+    background-color: var(--highlight-color);
+    color: var(--text-color);
+}
+
+/* ---------- ヘルプ ---------- */
+.help-panel {
+    font-family: 'DotGothic16', sans-serif;
+    font-size: 15px;
+}
+
+.help-panel .section-title {
+    font-family: 'Press Start 2P', sans-serif;
+    margin-bottom: 28px;
+}
+
+.help-lead {
+    margin-bottom: 12px;
+}
+
+.cmd-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+}
+
+.cmd-table th,
+.cmd-table td {
+    border: 2px solid var(--text-color);
+    padding: 6px 10px;
+    text-align: left;
+}
+
+.cmd-table th {
+    background-color: var(--primary-color);
+    color: var(--secondary-color);
+    font-weight: normal;
+}
+
+.cmd-table td:last-child {
+    color: var(--secondary-color);
+}
+
+.help-notes {
+    list-style: none;
+}
+
+.help-notes li {
+    position: relative;
+    padding-left: 20px;
+    margin-bottom: 6px;
+}
+
+.help-notes li::before {
+    content: '▶';
+    position: absolute;
+    left: 0;
+    font-size: 10px;
+    top: 5px;
+    color: var(--secondary-color);
+}
+
+/* ---------- トースト ---------- */
+.toast {
+    position: fixed;
+    left: 50%;
+    bottom: 24px;
+    transform: translate(-50%, 200%);
+    padding: 12px 20px;
+    background-color: var(--bg-color);
+    color: var(--secondary-color);
+    border: 4px solid var(--secondary-color);
+    font-family: 'DotGothic16', sans-serif;
+    font-size: 16px;
+    z-index: 100;
+    opacity: 0;
+    visibility: hidden;
+    transition: transform 0.2s steps(3), opacity 0.2s steps(3), visibility 0.2s;
+    pointer-events: none;
+    max-width: calc(100vw - 32px);
+}
+
+.toast.is-show {
+    transform: translate(-50%, 0);
+    opacity: 1;
+    visibility: visible;
+}
+
+/* ---------- スマホ ---------- */
+@media (max-width: 768px) {
+    .voice-page {
+        padding: 14px;
+    }
+
+    .voice-page .pixel-text {
+        font-size: 18px;
+    }
+
+    .voice-screen {
+        padding: 24px 16px;
+    }
+
+    .voice-screen .pixel-box {
+        padding: 16px;
+    }
+
+    .visualizer {
+        gap: 3px;
+    }
+
+    .visualizer span {
+        width: 6px;
+    }
+
+    .btn-danger {
+        margin-left: 0;
+    }
+
+    .actions .pixel-btn {
+        flex: 1 1 calc(50% - 6px);
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .visualizer span,
+    .mic-btn.is-rec,
+    .status-badge.is-rec,
+    .interim:not(:empty)::after {
+        animation: none !important;
+    }
+
+    .visualizer.is-speaking span {
+        height: 20px;
+    }
+}

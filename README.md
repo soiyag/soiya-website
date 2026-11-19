@@ -61,11 +61,32 @@
 </div>
 ```
 
+## ボイスメモ（音声入力アプリ）
+
+`voice.html` は、話した言葉をその場で文字にする音声入力アプリです。作品集の「ボイスメモ」から開けます。
+
+- ブラウザ標準の Web Speech API を使います（サーバーや API キーは不要）
+- 対応ブラウザ: Chrome / Edge / Safari（Firefox は非対応）
+- マイクを使うため、`https://` のページ（GitHub Pages など）か `http://localhost` で開いてください
+- Chrome では音声が Google のサーバーに送られて文字に変換されます
+- 文字はカーソル位置に入り、テキストはブラウザ（localStorage）に自動保存されます
+- 「くてん」→「。」、「かいぎょう」→ 改行 などの音声コマンドに対応
+- コピー・`.txt` で保存・元に戻す・クリア、9 言語の切り替え
+
+ローカルで試すとき:
+
+```bash
+python3 -m http.server 8000
+# ブラウザで http://localhost:8000/voice.html を開く
+```
+
+ファイル: `voice.html` / `voice.css` / `voice.js`（色などは `styles.css` の変数を共有）
+
 ## ライセンス
 
 このプロジェクトはMITライセンスの下で公開されています。
 
 ## クレジット
 
-- フォント: [Press Start 2P](https://fonts.google.com/specimen/Press+Start+2P) by Google Fonts
+- フォント: [Press Start 2P](https://fonts.google.com/specimen/Press+Start+2P) / [DotGothic16](https://fonts.google.com/specimen/DotGothic16) by Google Fonts
 - インスピレーション: 8ビット時代のレトロゲーム (ファミコン、ゲームボーイなど) 
